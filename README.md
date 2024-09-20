@@ -23,8 +23,7 @@ for creating AZURE resources, and you can customize the inputs as needed. Below 
 ```hcl
 module "dns_zone" {
   depends_on                   = [module.resource_group, module.vnet]
-  source                       = "SyncArcs/dns/azure"
-  version                      = "1.0.0"
+  source                       = "git::https://github.com/SyncArcs/terraform-azure-dns.git?ref=v1.0.0"
   name                         = local.name
   environment                  = local.environment
   resource_group_name          = module.resource_group.resource_group_name
@@ -89,7 +88,7 @@ Replace **MIT** and **SyncArcs** with the appropriate license and your informati
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_labels"></a> [labels](#module\_labels) | SyncArcs/labels/azure | 1.0.4 |
+| <a name="module_labels"></a> [labels](#module\_labels) | git::https://github.com/SyncArcs/terraform-azure-labels.git | v1.0.0 |
 
 ## Resources
 

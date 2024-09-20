@@ -8,8 +8,7 @@ locals {
 }
 
 module "resource_group" {
-  source      = "SyncArcs/resource-group/azure"
-  version     = "1.0.5"
+  source      = "git::https://github.com/SyncArcs/terraform-azure-resource-group.git?ref=v1.0.0"
   name        = "app"
   environment = "tested"
   location    = "North Europe"
@@ -17,8 +16,7 @@ module "resource_group" {
 
 
 module "vnet" {
-  source              = "SyncArcs/vnet/azure"
-  version             = "1.0.4"
+  source              = "git::https://github.com/SyncArcs/terraform-azure-vnet.git?ref=v1.0.0"
   name                = "app"
   environment         = "test"
   resource_group_name = module.resource_group.resource_group_name
@@ -29,13 +27,13 @@ module "vnet" {
 
 module "dns_zone" {
   depends_on                   = [module.resource_group, module.vnet]
-  source                       = "../.."
+  source                       = "./../../."
   name                         = local.name
   environment                  = local.environment
   resource_group_name          = module.resource_group.resource_group_name
   dns_zone_names               = "example0000.com"
-  private_registration_enabled = true
-  private_dns                  = true
+  private_registration_enabled = false
+  private_dns                  = false
   private_dns_zone_name        = "webserver0000.com"
   virtual_network_id           = module.vnet.id
   a_records = [{
